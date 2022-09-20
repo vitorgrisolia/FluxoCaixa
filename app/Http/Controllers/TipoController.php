@@ -14,7 +14,9 @@ class TipoController extends Controller
      */
     public function index()
     {
-        //
+        $tipos = Tipo::orderBy('tipo');
+        return view('tipo.index')
+                ->with(compact('tipo'));
     }
 
     /**
@@ -24,7 +26,10 @@ class TipoController extends Controller
      */
     public function create()
     {
-        //
+        //tratamento para usar o mesmo formulário
+        $tipo = null;
+        return view('tipo.form')
+                ->with(compact('tipo'));
     }
 
     /**
@@ -35,7 +40,11 @@ class TipoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tipo = new Tipo();
+        $tipo->fill($request->all());
+        $tipo->save();
+
+        return redirect()->route('tipo.index')->with('success','Cadastrado com sucesso');
     }
 
     /**
@@ -44,9 +53,11 @@ class TipoController extends Controller
      * @param  \App\Models\Tipo  $tipo
      * @return \Illuminate\Http\Response
      */
-    public function show(Tipo $tipo)
+    public function show(int $id)
     {
-        //
+        $tipo = Tipo::find($id);
+        return view('tipo.show')
+                ->with(compact('tipo'));
     }
 
     /**
@@ -55,9 +66,11 @@ class TipoController extends Controller
      * @param  \App\Models\Tipo  $tipo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tipo $tipo)
+    public function edit(int $id)
     {
-        //
+        $tipo = new Tipo();
+        return view('tipo.form')
+                ->with(compact('tipo'));
     }
 
     /**
@@ -67,9 +80,13 @@ class TipoController extends Controller
      * @param  \App\Models\Tipo  $tipo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tipo $tipo)
+    public function update(Request $request, int $id)
     {
-        //
+        $tipo = Tipo::find($id);
+        $tipo->fill($request->all());
+        $tipo->save();
+
+        return redirect()->route('tipo.index')->with('success','Atualizado com sucesso');
     }
 
     /**
@@ -78,8 +95,11 @@ class TipoController extends Controller
      * @param  \App\Models\Tipo  $tipo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipo $tipo)
+    public function destroy(int $id)
     {
-        //
+        $tipo = Tipo::find($id);
+        $tipo->delete();
+
+        return redirect()->route('tipo.index')->with('danger','Excluído com sucesso');
     }
 }
