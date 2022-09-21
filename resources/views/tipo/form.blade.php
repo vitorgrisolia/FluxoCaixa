@@ -18,10 +18,10 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="tipo"  class="form-label" >Tipo*</label>
-                <input type="text" name="tipo" id="tipo" class="form-control" value="{{ $tipo? $tipo->tipo : old(tipo) }}" required>
+                <input type="text" name="tipo" id="tipo" class="form-control" value="{{ $tipo ? $tipo->tipo : old('tipo') }}" required>
             </div>
             <div class="form-group col-md-2">
-                <input type="submit" value=" {{ $tipo? 'Atualizar' : 'Cadastrar'}}" class="btn btn-primary">
+                <input type="submit" value=" {{ $tipo ? 'Atualizar' : 'Cadastrar'}}" class="btn btn-primary">
             </div>
         </div>
     </form>

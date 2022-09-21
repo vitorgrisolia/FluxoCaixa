@@ -54,7 +54,7 @@
                         <a class="nav-link" href="{{ route('tipo.index') }}">
                             <i class="bi bi-arrow-down-up"></i>
                             Tipos
-                        </a>                        
+                        </a>
                         <a class="nav-link" href="{{ route('logout') }}">
                             <i class="bi bi-box-arrow-right"></i>
                             Sair

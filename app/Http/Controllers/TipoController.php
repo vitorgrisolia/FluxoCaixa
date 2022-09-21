@@ -16,7 +16,7 @@ class TipoController extends Controller
     {
         $tipos = Tipo::orderBy('tipo');
         return view('tipo.index')
-                ->with(compact('tipo'));
+                ->with(compact('tipos'));
     }
 
     /**
