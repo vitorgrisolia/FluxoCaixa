@@ -9,7 +9,7 @@
         Novo Tipo
         @endif
     </h1>
-    @if ()
+    @if ($tipo)
         <form action="{{ route('tipo.update', ['id'=>$tipo->id_tipo]) }}" method="post">        
     @else
         <form action="{{ route('tipo.store') }}" method="post">        
@@ -21,7 +21,8 @@
                 <input type="text" name="tipo" id="tipo" class="form-control" value="{{ $tipo ? $tipo->tipo : old('tipo') }}" required>
             </div>
             <div class="form-group col-md-2">
-                <input type="submit" value=" {{ $tipo ? 'Atualizar' : 'Cadastrar'}}" class="btn btn-primary">
+                <br>
+                <input type="submit" value=" {{ $tipo ? 'Atualizar' : 'Cadastrar'}}" class="btn btn-primary mt-2">
             </div>
         </div>
     </form>

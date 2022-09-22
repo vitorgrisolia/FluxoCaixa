@@ -15,10 +15,10 @@ class CentroCusto extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'centro_custos';
-    protected $primaryKey = 'id_centro_custos';
+    protected $primaryKey = 'id_centro_custo';
     protected $dates = ['created_at','updated_at','deleted_at'];
     //Campos que irá conseguir acessar via Formulário
-    protected $fillable = ['centro_custo'];
+    protected $fillable = ['id_tipo','centro_custo'];
 
     /*
      *   Relacionamentos     *

@@ -68,7 +68,7 @@ class TipoController extends Controller
      */
     public function edit(int $id)
     {
-        $tipo = new Tipo();
+        $tipo = Tipo::find($id);
         return view('tipo.form')
                 ->with(compact('tipo'));
     }
