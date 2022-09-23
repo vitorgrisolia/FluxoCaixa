@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('dt_faturamento');
             $table->string('descricao')->nullable();
             $table->text('observacoes')->nullable();
+            $table->decimal('valor',10,2)->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

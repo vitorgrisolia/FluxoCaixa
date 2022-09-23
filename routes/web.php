@@ -90,7 +90,7 @@ Route::prefix('lancamento')->middleware(['auth'])->controller(LancamentoControll
     Route::get('/mostrar/{id}', 'show')->     name('lancamento.show');
     Route::post('/cadastrar', 'store')->      name ('lancamento.store');
     Route::post('/atualizar/{id}', 'update')->name ('lancamento.update');
-    Route::post('/deletar/{id}', 'destroy')-> name ('lancamento.delete');
+    Route::post('/deletar/{id}', 'destroy')-> name ('lancamento.destroy');
 });
 /*
 |--------------------------------------------------------------------------
