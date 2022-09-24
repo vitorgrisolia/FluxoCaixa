@@ -1,26 +1,29 @@
 @extends('layouts.base')
 
 @section('conteudo')
-    
+<div class="col-md-12">
     <h1><i class="bi bi-basket-fill"></i>
         Lançamentos
+        --
+        <h2>
+            <hr>
+            <strong>Usuário: {{ Auth::user()->nome}}</strong>
+            <br>
+            <strong>Total de Lançamentos: {{ $lancamentos->count() }}</strong>
+            <br>
+            <strong>Total: R$ {{$lancamentos->sum('valor')}}</strong>
+            <hr>
+            
+        </h2>
     </h1>
-    -
+</div>   
     <a href="{{ route('lancamento.create') }}" class="btn btn-dark">
         Novo
     </a>
-    <h2>
-        <hr>
-        <strong>Usuário: {{ Auth::user()->nome}}</strong>
-        <br>
-        <strong>Total de Lançamentos: {{ $lancamentos->count() }}</strong>
-        <br>
-        <strong>Total: R$ {{$lancamentos->sum('valor')}}</strong>
-        <hr>
-    </h2>
+
     <table class="table table-striped table-border table-hover">
         {{-- Cabeçalho --}}
-        <thead> 
+        <thead>
             <tr>
                 <th>Ações</th>
                 <th>ID</th>
@@ -48,8 +51,8 @@
                     <td>{{ $lancamento->centroCusto->tipo->tipo       }}</td>
                     <td>{{ $lancamento->centroCusto->centro_custo     }}</td>
                     <td>{{ $lancamento->descricao                     }}</td>
-                    <td>{{ $lancamento->dt_created_at->format('d/m/Y')}}</td>
-                    <td>{{ $lancamento->update_at->format('d/m/Y    ')}}</td>
+                    <td>{{ $lancamento->created_at->format('d/m/Y')}}</td>
+                    <td>{{ $lancamento->updated_at->format('d/m/Y')    }}</td>
                 </tr>
             @endforeach
         </tbody>

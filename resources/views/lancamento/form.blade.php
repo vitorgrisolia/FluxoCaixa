@@ -3,41 +3,68 @@
 @section('conteudo')
     
     <h1>
-        @if($centro)
-        Atualizar Centro de Custo
+        @if($lancamento)
+        Atualizar Lançamentos
         @else
-        Novo Centro de Custo
+        Novo Lançamento
         @endif
     </h1>
-    @if ($centro)
-        <form action="{{ route('centro.update', ['id'=>$centro->id_centro_custo]) }}" method="post">        
+    @if ($lancamento)
+        <form action="{{ route('lancamento.update', ['id'=>$lancamento->id_lancamento ]) }}" method="post">        
     @else
-        <form action="{{ route('centro.store') }}" method="post">        
+        <form action="{{ route('lancamento.store') }}" method="post">        
     @endif
         @csrf
         <div class="row">
-            <div class="form-group col-md-6">
-                <label for="centro_custo"  class="form-label" >Centro de Custo*</label>
-                <input type="text" name="centro_custo" id="centro_custo" class="form-control" value="{{ $centro ? $centro->centro_custo : old('centro_custo') }}" required>
-            </div>
+            
             <div class="form-group col-md-4">
-                <label for="id_tipo" class="form-label">Tipo*</label>
-                <select name="id_tipo" id="id_tipo" class="form-select" required>
+                <label for="id_centro_custo" class="form-label">CentroCusto*</label>
+                <select name="id_centro_custo" id="id_centro_custo" class="form-select" required>
                 <option value="">Selecione</option>
-                
-
-                    @foreach ($tipos as $tipo)
-                        <option value="{{ $tipo->id_tipo }}"
-                        {{ ($centro && $centro->id_tipo == $tipo->id_tipo) ? 'selected' : ''}}
+                <optgroup label="Saídas">
+                    @foreach ($saidas->get() as $centroCustos)
+                        <option value="{{ $centroCustos->id_centro_custo }}"
+                        {{($lancamento && $lancamento->id_centro_custo == $centroCustos->id_centro_custo  )
+                        ?
+                        'selected' : ''
+                        }}    
                             >
-                            {{ $tipo->tipo}}
+                            {{ $centroCustos->centro_custo }}
                         </option>
-                    @endforeach
+                    @endforeach                    
+                </optgroup>
+                <optgroup label="Entradas">                    
+                    @foreach ($entradas->get() as $centroCustos)
+                    <option value="{{ $centroCustos->id_centro_custo }}"
+                    {{($lancamento && $lancamento->id_centro_custo == $centroCustos->id_centro_custo  )
+                    ?
+                    'selected' : ''
+                    }}    
+                    >
+                    {{ $centroCustos->centro_custo }}
+                    </option>
+                @endforeach 
+                </optgroup>                
                 </select>
             </div>
             <div class="form-group col-md-2">
+                <label for="dt_faturamento" class="form-label">DT Faturamento*</label>
+                <input type="date" name="dt_faturamento" id="dt_faturamento" class="form-control" value="{{ $lancamento ? $lancamento->dt_faturamento : old('dt_faturamento') }}" required>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="valor" class="form-label">Valor*</label>
+                <input type="number" name="valor" id="valor" class="form-control" min="0" value ="{{ $lancamento ? $lancamento->valor : old('valor')}}" required>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="descricao" class="form-label">Descrição*</label>
+                <textarea name="descricao" id="descricao" rows="2" class="form-control" placeholder="Digite sua o porque do seu lançamento aqui..">{{ $lancamento ? $descricao->valor : old('descricao')}}</textarea>
+            </div>
+
+            <div class="form-group col-md-2">
                 <br>
-                <input type="submit" value=" {{ $centro ? 'Atualizar' : 'Cadastrar'}}" class="btn btn-primary mt-2">
+                <input type="submit" value=" {{ $lancamento ? 'Atualizar' : 'Cadastrar'}}" class="btn btn-primary mt-2">
             </div>
         </div>
     </form>
