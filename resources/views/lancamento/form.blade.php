@@ -49,7 +49,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="dt_faturamento" class="form-label">DT Faturamento*</label>
-                <input type="date" name="dt_faturamento" id="dt_faturamento" class="form-control" value="{{ $lancamento ? $lancamento->dt_faturamento : old('dt_faturamento') }}" required>
+                <input type="date" name="dt_faturamento" id="dt_faturamento" class="form-control" value="{{ $lancamento ? $lancamento->dt_faturamento->format('d-m-Y') : old('dt_faturamento') }}" required>
             </div>
 
             <div class="form-group col-md-2">
@@ -58,8 +58,8 @@
             </div>
 
             <div class="form-group col-md-12">
-                <label for="descricao" class="form-label">Descrição*</label>
-                <textarea name="descricao" id="descricao" rows="2" class="form-control" placeholder="Digite sua o porque do seu lançamento aqui..">{{ $lancamento ? $descricao->valor : old('descricao')}}</textarea>
+                <label for="descricao" class="form-label">Descricao*</label>
+                <textarea name="descricao" id="descricao" rows="2" class="form-control" placeholder="Digite sua o porque do seu lançamento aqui..">{{ $lancamento ? $lancamento->descricao : old('descricao')}}</textarea>
             </div>
 
             <div class="form-group col-md-2">

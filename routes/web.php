@@ -73,7 +73,7 @@ Route::prefix('centro-de-custo')->middleware(['auth'])->controller(CentroCustoCo
     Route::get('/mostrar/{id}', 'show')->     name('centro.show');
     Route::post('/cadastrar', 'store')->      name ('centro.store');
     Route::post('/atualizar/{id}', 'update')->name ('centro.update');
-    Route::post('/deletar/{id}', 'destroy')-> name ('centro.delete');
+    Route::get('/deletar/{id}', 'destroy')-> name ('centro.destroy');
 });
 /*
 |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ Route::prefix('lancamento')->middleware(['auth'])->controller(LancamentoControll
     Route::get('/mostrar/{id}', 'show')->     name('lancamento.show');
     Route::post('/cadastrar', 'store')->      name ('lancamento.store');
     Route::post('/atualizar/{id}', 'update')->name ('lancamento.update');
-    Route::post('/deletar/{id}', 'destroy')-> name ('lancamento.destroy');
+    Route::get('/deletar/{id}', 'destroy')-> name ('lancamento.destroy');
 });
 /*
 |--------------------------------------------------------------------------

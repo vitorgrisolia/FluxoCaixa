@@ -21,6 +21,9 @@
         Novo
     </a>
 
+    {{-- Formulário de Pesquisa --}}
+    {{-- /Formulário de pesquisa --}}
+
     <table class="table table-striped table-border table-hover">
         {{-- Cabeçalho --}}
         <thead>
@@ -37,12 +40,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($lancamentos->get() as $lancamento)
-                
+            @foreach ($lancamentos->get() as $lancamento)                
                 <tr>
                     <td>
+                        <a href="{{ route('lancamento.show', ['id'=>$lancamento->id_lancamento]) }}" class="btn btn-warning">
+                            Ver
+                        </a>
                         <a href="{{ route('lancamento.edit', ['id'=>$lancamento->id_lancamento]) }}" class="btn btn-success">
                             Editar
+                        </a>
+                        <a href="{{ route('lancamento.destroy', ['id'=>$lancamento->id_lancamento]) }}" class="btn btn-danger">
+                            Excluir
                         </a>
                     </td>
                     <td>{{ $lancamento->id_lancamento                 }}</td>
