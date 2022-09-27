@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Lancamento, CentroCusto, User, Tipo};
-
+use DateTime;
 
 class LancamentoController extends Controller
 {
@@ -14,9 +15,36 @@ class LancamentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lancamentos = Lancamento::where('id_user',Auth::user()->id_user)->orderBy('dt_faturamento');
+        $lancamentos = Lancamento::where('id_user',Auth::user()->id_user)->orderBy('dt_faturamento','desc');
+
+        if($request->get('pesquisar')){
+            $pesquisar = '%'.$request->get('pesquisar').'%';
+            $lancamentos->where('descricao','like',$pesquisar);
+
+        }
+
+        //Datas Inicio
+        if($request->get('dt_inicio') || $request->get('dt_fim') ){
+            if($request->get('dt_inicio')){
+                $dt_inicio = $request->get('dt_inicio');
+            }else{
+                $dt = new Carbon($request->get('dt_inicio'));
+                $dt->subDays(10);
+                $dt_inicio = $dt;
+            }
+        //Data Fim
+            if($request->get('dt_fim')){
+                $dt_fim = $request->get('dt_fim');
+            }else{
+                $dt = new Carbon($dt_inicio);
+                $dt->addDays(10);
+                $dt_fim = $dt;
+            }
+
+            $lancamentos->whereBetween('dt_faturamento', [$dt_inicio, $dt_fim]);
+        }
 
         return view('lancamento.index')->with(compact('lancamentos'));
     }
