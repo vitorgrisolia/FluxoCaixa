@@ -57,7 +57,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($lancamentos->get() as $lancamento)                
+            @foreach ($lancamentos as $lancamento)                
                 <tr>
                     <td>
                         <a href="{{ route('lancamento.show', ['id'=>$lancamento->id_lancamento]) }}" class="btn btn-warning">
@@ -82,5 +82,15 @@
             @endforeach
         </tbody>
     </table>
+{{-- PAGINAÇÃO --}}
+    <div>
+        {{ $lancamentos->appends(
+            [
+                'pesquisar' => request()->get('pesquisar', ''),
+                'dt_inicio' => request()->get('dt_inicio', ''),
+                'dt_fim' => request()->get('dt_fim', '')
+
+            ])->links() }}
+    </div>
 
 @endsection

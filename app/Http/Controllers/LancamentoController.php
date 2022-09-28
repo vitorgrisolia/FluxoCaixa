@@ -17,7 +17,7 @@ class LancamentoController extends Controller
      */
     public function index(Request $request)
     {
-        $lancamentos = Lancamento::where('id_user',Auth::user()->id_user)->orderBy('dt_faturamento','desc');
+        $lancamentos = Lancamento::where('id_user',Auth::user()->id_user)->orderBy('dt_faturamento','desc')->paginate(2);
 
         if($request->get('pesquisar')){
             $pesquisar = '%'.$request->get('pesquisar').'%';
