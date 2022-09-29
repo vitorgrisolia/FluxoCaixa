@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\{Lancamento, CentroCusto, User, Tipo};
 use DateTime;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OlaLeblanc;
+use App\Mail\Teste;
+
 class LancamentoController extends Controller
 {
     /**
@@ -45,7 +49,10 @@ class LancamentoController extends Controller
 
             $lancamentos->whereBetween('dt_faturamento', [$dt_inicio, $dt_fim]);
         }
-
+        // Envia e-mail
+        //Mail::to(Auth()->user())->send(new Teste(Auth()->user()));
+        //Mail::to('teste@olaleblanc.com')->send( new OlaLeblanc(Auth()->user()) ); CONFIGURADO
+        
         return view('lancamento.index')->with(compact('lancamentos'));
     }
 

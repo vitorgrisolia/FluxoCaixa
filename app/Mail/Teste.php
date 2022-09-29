@@ -9,11 +9,10 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 
 
-class OlaLeblanc extends Mailable
+
+class Teste extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
-
     /**
      * Create a new message instance.
      *
@@ -32,7 +31,7 @@ class OlaLeblanc extends Mailable
     public function build()
     {
         return $this->from('LeBlanc@t91.com', 'LeBlanc')
-        ->subject('leBlanc bem vinda')
-        ->view('Mail.OlaLeBlanc');
+            ->subject('leBlanc bem vinda')
+            ->markdown('mail.teste');
     }
 }
