@@ -21,39 +21,45 @@ class LancamentoController extends Controller
      */
     public function index(Request $request)
     {
-        $lancamentos = Lancamento::where('id_user',Auth::user()->id_user)->orderBy('dt_faturamento','desc')->paginate(2);
 
-        if($request->get('pesquisar')){
-            $pesquisar = '%'.$request->get('pesquisar').'%';
-            $lancamentos->where('descricao','like',$pesquisar);
-
-        }
-
-        //Datas Inicio
-        if($request->get('dt_inicio') || $request->get('dt_fim') ){
-            if($request->get('dt_inicio')){
-                $dt_inicio = $request->get('dt_inicio');
-            }else{
-                $dt = new Carbon($request->get('dt_inicio'));
+        $pesquisar = $request->pesquisar;
+        $dt_inicio = null;
+        $dt_fim = null;
+        if ( $request->dt_inicio ||  $request->dt_fim){
+            // data de inicio
+            if ($request->dt_inicio) {
+                $dt_inicio = $request->dt_inicio;
+            } else {
+                $dt = new Carbon($request->dt_fim);
                 $dt->subDays(10);
                 $dt_inicio = $dt;
             }
-        //Data Fim
-            if($request->get('dt_fim')){
-                $dt_fim = $request->get('dt_fim');
-            }else{
-                $dt = new Carbon($dt_inicio);
+            // data de fim
+            if ($request->dt_fim){
+                $dt_fim = $request->dt_fim;
+            } else {
+                $dt = new Carbon($request->dt_inicio);
                 $dt->addDays(10);
                 $dt_fim = $dt;
-            }
-
-            $lancamentos->whereBetween('dt_faturamento', [$dt_inicio, $dt_fim]);
+            }           
         }
-        // Envia e-mail
-        //Mail::to(Auth()->user())->send(new Teste(Auth()->user()));
-        //Mail::to('teste@olaleblanc.com')->send( new OlaLeblanc(Auth()->user()) ); CONFIGURADO
-        
-        return view('lancamento.index')->with(compact('lancamentos'));
+
+        $lancamentos = Lancamento::where( function( $query ) use ($pesquisar,$dt_inicio,$dt_fim){
+                    $query->where('id_user',Auth::user()->id_user);
+                    
+                    if($pesquisar){
+                        $query->where('descricao','like',"%{$pesquisar}%");
+                    }
+
+                    if($dt_inicio || $dt_fim){
+                        $query->whereBetween('dt_faturamento', [$dt_inicio, $dt_fim]);
+                    }
+        })->with(['centroCusto.tipo'])
+            ->orderBy('dt_faturamento', 'desc')
+            ->paginate(5); 
+          
+        return view('lancamento.index')
+                    ->with(compact('lancamentos'));
     }
 
     /**
