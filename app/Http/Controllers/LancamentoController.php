@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OlaLeblanc;
 use App\Mail\Teste;
+use Illuminate\Support\Facades\Storage;
 
 class LancamentoController extends Controller
 {
@@ -56,7 +57,7 @@ class LancamentoController extends Controller
                     }
         })->with(['centroCusto.tipo'])
             ->orderBy('dt_faturamento', 'desc')
-            ->paginate(5); 
+            ->paginate(4); 
           
         return view('lancamento.index')
                     ->with(compact('lancamentos'));
@@ -87,7 +88,19 @@ class LancamentoController extends Controller
     {
         $lancamento = new Lancamento();
         $lancamento->fill($request->all());
-        $lancamento->id_user = auth::user()->id_user;        
+        $lancamento->id_user = auth::user()->id_user;    
+        //subir o arquivo
+        if($request->arquivo){
+            $extension = $request->arquivo->getClientOriginalExtension();
+            $lancamento->arquivo = $request->arquivo->storeAs('arquivos',date('YmdHis').'.'.$extension);
+        }
+
+        // $extension = $request->arquivo->getClientOriginalExtension();
+        // $path = $request->arquivo->storeAs('arquivos',date('YmdHis').'.'.$extension);
+        // echo $path;
+        // dd($request->arquivo);
+        
+
         $lancamento->save();
 
         return redirect()->route('lancamento.index');
@@ -132,7 +145,22 @@ class LancamentoController extends Controller
     public function update(Request $request, int $id)
     {
         $lancamento = lancamento::find($id);
+        //se já existe
+        //e se já existe, apagar o anterior
+        if($request->arquivo && $lancamento->arquivo !=''){
+            if(Storage::exists($lancamento->arquivo)){
+               Storage::delete($lancamento->arquivo);
+            }
+        }
+
         $lancamento->fill($request->all());
+
+        //subir o arquivo
+        if($request->arquivo){
+        $extension = $request->arquivo->getClientOriginalExtension();
+        $lancamento->arquivo = $request->arquivo->storeAs('arquivos',date('YmdHis').'.'.$extension);
+        }
+
         $lancamento->save();
 
         return redirect()->route('lancamento.index')->with('success','Atualizado com sucesso');

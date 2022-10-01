@@ -10,9 +10,9 @@
         @endif
     </h1>
     @if ($lancamento)
-        <form action="{{ route('lancamento.update', ['id'=>$lancamento->id_lancamento ]) }}" method="post">        
+        <form action="{{ route('lancamento.update', ['id'=>$lancamento->id_lancamento ]) }}" method="post" enctype="multipart/form-data">        
     @else
-        <form action="{{ route('lancamento.store') }}" method="post">        
+        <form action="{{ route('lancamento.store') }}" method="post" enctype="multipart/form-data">        
     @endif
         @csrf
         <div class="row">
@@ -60,6 +60,11 @@
             <div class="form-group col-md-12">
                 <label for="descricao" class="form-label">Descricao*</label>
                 <textarea name="descricao" id="descricao" rows="2" class="form-control" placeholder="Digite sua o porque do seu lançamento aqui..">{{ $lancamento ? $lancamento->descricao : old('descricao')}}</textarea>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="arquivo" class="form-label">Arquivo</label>
+                <input type="file" name="arquivo" id="arquivo" class="form-control">
             </div>
 
             <div class="form-group col-md-2">
