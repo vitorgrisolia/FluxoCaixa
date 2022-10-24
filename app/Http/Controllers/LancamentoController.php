@@ -72,8 +72,8 @@ class LancamentoController extends Controller
     {
         $lancamento = null;    
         $centrosDeCusto = CentroCusto::orderBy('centro_custo');
-        $entradas = CentroCusto::where('id_tipo',3)->orderBy('centro_custo');
-        $saidas = CentroCusto::where('id_tipo',2)->orderBy('centro_custo');
+        $entradas = CentroCusto::where('id_tipo',2)->orderBy('centro_custo');
+        $saidas = CentroCusto::where('id_tipo',1)->orderBy('centro_custo');
 
         return view('lancamento.form')->with(compact('entradas','saidas','lancamento'));
     }

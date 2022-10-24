@@ -19,31 +19,46 @@
             
             <div class="form-group col-md-4">
                 <label for="id_centro_custo" class="form-label">CentroCusto*</label>
-                <select name="id_centro_custo" id="id_centro_custo" class="form-select" required>
+                <select name="id_centro_custo" id="id_centro_custo" class="form-control" required>
                 <option value="">Selecione</option>
-                <optgroup label="Saídas">
-                    @foreach ($saidas->get() as $centroCustos)
+                <optgroup label="Entradas">
+                    @foreach ($entradas->get() as $centroCustos)
                         <option value="{{ $centroCustos->id_centro_custo }}"
-                        {{($lancamento && $lancamento->id_centro_custo == $centroCustos->id_centro_custo  )
-                        ?
-                        'selected' : ''
+                        {{
+                            (
+                                $lancamento 
+                                && 
+                                $lancamento->id_centro_custo == $centroCustos->id_centro_custo  
+                            )
+                            ?
+                            'selected' 
+                            : 
+                            ''
                         }}    
                             >
                             {{ $centroCustos->centro_custo }}
                         </option>
                     @endforeach                    
                 </optgroup>
-                <optgroup label="Entradas">                    
-                    @foreach ($entradas->get() as $centroCustos)
-                    <option value="{{ $centroCustos->id_centro_custo }}"
-                    {{($lancamento && $lancamento->id_centro_custo == $centroCustos->id_centro_custo  )
-                    ?
-                    'selected' : ''
-                    }}    
-                    >
-                    {{ $centroCustos->centro_custo }}
-                    </option>
-                @endforeach 
+
+                <optgroup label="Saidas">                    
+                    @foreach ($saidas->get() as $centroCustosUm)
+                        <option value="{{ $centroCustosUm->id_centro_custo }}"
+                        {{
+                        (
+                            $lancamento
+                            && 
+                            $lancamento->id_centro_custo == $centroCustosUm->id_centro_custo  
+                        )
+                            ?
+                            'selected' 
+                            : 
+                            ''
+                        }}    
+                        >
+                            {{ $centroCustosUm->centro_custo }}
+                        </option>
+                    @endforeach 
                 </optgroup>                
                 </select>
             </div>
