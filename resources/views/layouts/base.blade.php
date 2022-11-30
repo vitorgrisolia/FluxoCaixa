@@ -40,7 +40,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavFluxo">
                     <div class="navbar-nav">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route ('home.index') }}">
                            <i class="bi bi-house-door-fill"></i>
                            Home
                         </a>

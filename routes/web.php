@@ -41,6 +41,17 @@ Route::prefix('dashboard')
 });
 
 /*
+Kaue Castelani -HOME 29/11/2022
+*/
+Route::prefix('home')->middleware(['auth'])->controller(HomeController::class)
+->group(function ()
+{
+    Route::get('/', 'index')->                name('home.index');
+    Route::get('/novo', 'create')->           name('home.create');
+});
+
+
+/*
 |--------------------------------------------------------------------------
 | TIPOS
 |--------------------------------------------------------------------------
