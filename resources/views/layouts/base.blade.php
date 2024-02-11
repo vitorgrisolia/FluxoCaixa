@@ -41,8 +41,8 @@
                 <div class="collapse navbar-collapse" id="navbarNavFluxo">
                     <div class="navbar-nav">
                         <a class="nav-link" href="{{ route ('home.index') }}">
-                           <i class="bi bi-house-door-fill"></i>
-                           Home
+                            <i class="bi bi-house-door-fill"></i>
+                            Home
                         </a>
                         <a class="nav-link" href="{{ route ('lancamento.index') }}">
                             <i class="bi bi-piggy-bank-fill"></i>
@@ -74,10 +74,10 @@
         {{-- RODAPÉ --}}        
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <div class="col-md-12 d-flex align-items-center">
-                <span class="mb-3 mb-md-0 text-muted">© Todos os direitos reservados {{ date('Y') }}</span>
+                <span class="mb-3 mb-md-0 text-muted">© Todos os direitos reservados {{ date('Y-m-d') }}</span>
                 &nbsp;
                 <a href="https://www.linkedin.com/in/kau%C3%AA-castelani-1400a2175/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                 - <strong>Kaue Castelani</strong>
+                    - <strong>Vitor Grisolia</strong>
                 </a>
             </div>
         </footer>
